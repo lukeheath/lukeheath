@@ -1,1 +1,6 @@
-console.log('\'Allo \'Allo!');
+'use strict';
+const $ = window.jQuery;
+
+$(function() {
+	$('.single-item').slick();
+});
