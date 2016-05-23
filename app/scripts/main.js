@@ -2,5 +2,7 @@
 const $ = window.jQuery;
 
 $(function() {
-	$('.single-item').slick();
+	$('#carousel').slick({
+		dots: true
+	});
 });

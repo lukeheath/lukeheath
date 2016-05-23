@@ -1,3 +1,102 @@
+// Bootstrap
 @import 'bootstrap/bootstrap.less';
+
+// Slick carousel
 @import 'vendor/slick.less';
 
+// Custom icon set
+@import 'icons.less';
+
+/**
+ * LAYOUT
+ */
+
+html,body{
+	height: 100%;
+}
+
+.container-fluid{
+	height: 100%;
+	padding: 0;
+}
+
+/**
+ * TYPE & LINKS
+ */
+
+p{
+	font-famiy: ''
+}
+
+a{
+	color: @white;
+	&.icon-link{
+		color: @white;
+	}
+	&:hover{
+		text-decoration: none;
+	}
+}
+
+/**
+ * ICONOGRAPHY
+ */
+
+.icon{
+	font-size: 24px;
+	padding: 15px;
+	&.icon-envelope{
+		font-size: 36px;
+		position: relative;
+		top: 8px
+	}
+}
+
+/**
+ * SLIDES
+ */
+
+.slide{
+	padding-top: 50px;
+}
+
+.contact{
+	margin-top: 16px;
+	a{
+		.opacity(0.5);
+		.transition-duration(0.3s);
+		&:hover{
+			.opacity(1);
+		}
+	}
+}
+
+/**
+ * CAROUSEL
+ */
+
+#carousel{
+	height: 100%;
+	width: 100%;
+	overflow-x: hidden;
+	position: relative;
+	z-index: 3;
+	>div{
+		width: 100%;
+		height: 100%;
+		padding: 20px;
+		text-align: center;
+		background: @brand-primary;
+		border: 1px solid black;
+		h1{
+			color: @white;
+		}
+		.welcome{
+			max-width: 500px;
+			margin: 0 auto;
+			h1{
+				line-height: 1.4;
+			}
+		}
+	}
+}

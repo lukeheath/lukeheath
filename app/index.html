@@ -9,11 +9,20 @@
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
     <!-- Place favicon.ico in the root directory -->
 
+    <!-- build:css styles/vendor.css -->
+    <!-- bower:css -->
+    <!-- endbower -->
+    <!-- endbuild -->
+
     <!-- build:css styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
+
+    <!-- Google Web Fonts -->
+    <link href='https://fonts.googleapis.com/css?family=Merriweather|Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <!-- End Google Web Fonts -->
     
-  </head>
+  </head> 
   <body>
     <!--[if lt IE 10]>
       <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
@@ -21,10 +30,39 @@
 
     <div class="container-fluid">
 
-      <div class="single-item">
-        <div>your content</div>
-        <div>your content</div>
-        <div>your content</div>
+      <div id="carousel">
+        <div>
+          <div class="slide welcome">
+            <h1>Hi, my name is Luke Heath. I'm a designer, developer, and dreamer living in the Texas Hill&nbsp;Country.</h1>
+            <div class="contact">
+              <a class="icon-link" href="mailto:luke@lukeheath.com" title="Email"><span class="icon icon-envelope"></span></a>
+              <a class="icon-link" href="http://www.linkedin.com/in/lukeheath" target="_blank" title="LinkedIn"><span class="icon icon-linkedin"></span></a>
+              <a class="icon-link" href="http://www.github.com/lukeheath" target="_blank" title="GitHub"><span class="icon icon-github"></span></a>
+              <a class="icon-link" href="http://twitter.com/lukeheathen" title=""><span class="icon icon-twitter"></span></a>
+            </div>
+          </div>
+        </div>
+        <div>
+          <h1>Seedling</h1>
+        </div>
+        <div>
+          <h1>DRAFT</h1>
+        </div>
+        <div>
+          <h1>Samsung</h1>
+        </div>
+        <div>
+          <h1>La Madeleine</h1>
+        </div>
+        <div>
+          <h1>Microsoft</h1>
+        </div>
+        <div>
+          <h1>Unicorn</h1>
+        </div>
+        <div>
+          <h1>About</h1>
+        </div>
       </div>
     
     </div>
@@ -42,6 +80,7 @@
     <!-- build:js scripts/vendor.js -->
     <!-- bower:js -->
     <script src="/bower_components/jquery/dist/jquery.js"></script>
+    <script src="/bower_components/slick-carousel/slick/slick.js"></script>
     <script src="/bower_components/slick-carousel/slick/slick.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
