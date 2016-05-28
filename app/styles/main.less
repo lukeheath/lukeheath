@@ -11,12 +11,13 @@
  * LAYOUT
  */
 
-html,body{
+html,body,.container-fluid{
 	height: 100%;
+	background: @black;
 }
 
 .container-fluid{
-	height: 100%;
+	min-width: 320px;
 	padding: 0;
 }
 
@@ -57,18 +58,39 @@ a{
  */
 
 .slide{
+	height: 100%;
 	padding-top: 50px;
+	position: relative;
+	z-index: 2;
 }
 
 .contact{
 	margin-top: 16px;
 	a{
-		.opacity(0.5);
+		.opacity(0.75);
 		.transition-duration(0.3s);
 		&:hover{
 			.opacity(1);
 		}
 	}
+}
+
+/**
+ * VIDEOS
+ */
+#video-bg{
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	z-index: 1;
+}
+
+.video-cover{
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	z-index: 2;
+	background: rgba(0,0,0,0.80);
 }
 
 /**
@@ -86,7 +108,6 @@ a{
 		height: 100%;
 		padding: 20px;
 		text-align: center;
-		background: @brand-primary;
 		border: 1px solid black;
 		h1{
 			color: @white;
@@ -96,6 +117,29 @@ a{
 			margin: 0 auto;
 			h1{
 				line-height: 1.4;
+			}
+		}
+	}
+}
+
+@media(min-width: @screen-sm-min){
+	h1{
+		font-size: 50px;
+	}
+	.slide{
+		padding-top: 100px;
+	}
+	#carousel{
+		>div{
+			.welcome{
+				max-width: 700px;
+			}
+			.icon{
+				font-size: 36px;
+				margin: 20px;
+				&.icon-envelope{
+					font-size: 55px;
+				}
 			}
 		}
 	}

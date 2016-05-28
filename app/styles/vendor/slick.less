@@ -44,6 +44,7 @@
     left: 0;
     top: 0;
     display: block;
+    height: 100%;
 
     &:before,
     &:after {
@@ -63,6 +64,7 @@
     float: left;
     height: 100%;
     min-height: 1px;
+    outline: none;
     [dir="rtl"] & {
         float: right;
     }
@@ -155,6 +157,7 @@
 }
 
 .slick-prev:before, .slick-next:before {
+  display: none;
   content: "\e904";
   font-family: 'icomoon';
   font-size: 100px;
@@ -170,11 +173,11 @@
 }
 
 .slick-prev {
-  left: -25px;
+  left: -20px;
 }
 
 .slick-next {
-  right: -25px;
+  right: -20px;
 }
 
 /* Dots */
@@ -242,3 +245,8 @@
     }
 }
 
+@media(min-width: @screen-sm-min){
+    .slick-prev:before, .slick-next:before{
+        display: block;
+    }
+}
