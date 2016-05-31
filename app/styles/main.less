@@ -4,12 +4,19 @@
 // Slick carousel
 @import 'vendor/slick.less';
 
+// Import mixins
+@import 'mixins/elements.less';
+
 // Custom icon set
 @import 'icons.less';
 
 /**
  * LAYOUT
  */
+
+*{
+	outline: none !important;
+}
 
 html,body,.container-fluid{
 	height: 100%;
@@ -25,8 +32,21 @@ html,body,.container-fluid{
  * TYPE & LINKS
  */
 
+h1{
+	font-size: 36px;
+	line-height: 1.4;
+}
+
+h2{
+	font-size: 28px;
+	line-height: 1.4;
+}
+
 p{
-	font-famiy: ''
+	color: @white;
+	font-size: 19px;
+	line-height: 1.4;
+	margin: 16px 0;
 }
 
 a{
@@ -35,7 +55,37 @@ a{
 		color: @white;
 	}
 	&:hover{
+		color: @brand-primary;
 		text-decoration: none;
+	}
+}
+
+/**
+ * BUTTONS
+ */
+
+.button-wrap{
+	margin: 32px auto 16px;
+}
+.button{
+	padding: 5px 10px;
+	font-size: 22px;
+	text-transform: uppercase;
+	font-weight: 200px;
+	color: @white;
+	border: 1px solid @white;
+	border-top-right-radius: 10px;
+	border-bottom-left-radius: 10px;
+	border-top-left-radius: 0px;
+	border-bottom-right-radius: 0px;
+	background: rgba(0,0,0,0.3);
+	.transition-duration(0.3s);
+	&:hover{
+		border-top-right-radius: 0px;
+		border-bottom-left-radius: 0px;
+		border-top-left-radius: 10px;
+		border-bottom-right-radius: 10px;
+		border-color: @brand-primary;
 	}
 }
 
@@ -44,12 +94,26 @@ a{
  */
 
 .icon{
-	font-size: 24px;
-	padding: 15px;
-	&.icon-envelope{
-		font-size: 36px;
+	font-size: 26px;
+	color: @white;
+}
+
+/**
+ * ROLES
+ */
+
+.roles{
+	max-width: 400px;
+	margin: 16px auto 32px;
+	color: @white;
+	font-size: 10px;
+	&.three{
+		max-width: 300px;
+	}
+	.icon{
+		color: darken(@brand-primary, 10%);
 		position: relative;
-		top: 8px
+		left: -3px;
 	}
 }
 
@@ -58,19 +122,89 @@ a{
  */
 
 .slide{
-	height: 100%;
-	padding-top: 50px;
+	max-width: 700px;
+	margin: 5% auto;
+	padding: 16px;
 	position: relative;
 	z-index: 2;
+	#gradient.vertical(rgba(0,0,0,0); rgba(0,0,0,0.6); 0%; 50%); 
+	&.welcome{
+		background: none;
+	}
+	h2{
+		max-width: 600px;
+		margin: 0 auto;
+	}
 }
 
+/**
+ * CONTACT
+ */
 .contact{
-	margin-top: 16px;
+	margin: 16px auto;
+	.icon{
+		font-size: 32px;
+		padding: 32px;
+	}
 	a{
 		.opacity(0.75);
 		.transition-duration(0.3s);
 		&:hover{
 			.opacity(1);
+		}
+	}
+}
+
+/**
+ * SLIDE DESC
+ */
+.desc-wrap{
+	color: @white;
+	.desc{
+		display: block;
+	}
+	.show-toggle{
+		margin: 0 auto -40px;
+		width: 100px;
+		span{
+			color: @white;
+			.transition-duration(0.3s);
+		}
+		&:hover{
+			cursor: pointer;
+			span{
+				color: @brand-primary;
+			}
+		}
+		.icon{
+			display: inline-block;
+			font-size: 100px;
+			line-height: 0;
+			position: relative;
+			top: -5px;
+			.transform(rotate(-90deg));
+		}
+	}
+	.more{
+		display: none;
+	}
+	.less{
+		display: block;
+	}
+	&.hide-desc{
+		.more{
+			display: block;
+		}
+		.less{
+			display: none;
+		}
+		.desc{
+			display: none;
+		}
+		.show-toggle{
+			.icon{
+				.transform(rotate(90deg));
+			}
 		}
 	}
 }
@@ -90,7 +224,7 @@ a{
 	height: 100%;
 	position: absolute;
 	z-index: 2;
-	background: rgba(0,0,0,0.80);
+	background: rgba(0,0,0,0.6);
 }
 
 /**
@@ -103,44 +237,48 @@ a{
 	overflow-x: hidden;
 	position: relative;
 	z-index: 3;
-	>div{
+	.slide-wrap{
 		width: 100%;
 		height: 100%;
 		padding: 20px;
+		margin: 0 5px;
 		text-align: center;
-		border: 1px solid black;
 		h1{
 			color: @white;
-		}
-		.welcome{
-			max-width: 500px;
-			margin: 0 auto;
-			h1{
-				line-height: 1.4;
-			}
 		}
 	}
 }
 
+.logo{
+	width: 80%;
+	max-width: 300px;
+	height: auto;
+	margin: 0 auto 8px;
+}
+
 @media(min-width: @screen-sm-min){
 	h1{
-		font-size: 50px;
+		font-size: 46px;
 	}
-	.slide{
-		padding-top: 100px;
+	h2{
+		font-size: 34px;
 	}
 	#carousel{
-		>div{
+		.slide-wrap{
 			.welcome{
 				max-width: 700px;
-			}
-			.icon{
-				font-size: 36px;
-				margin: 20px;
-				&.icon-envelope{
+				.icon.icon-envelope{
 					font-size: 55px;
+					position: relative;
+					top: 8px;
 				}
 			}
+		}
+	}
+	.roles{
+		.icon{
+			font-size: 36px;
+			margin: 20px;
 		}
 	}
 }

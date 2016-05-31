@@ -29,21 +29,21 @@ $(function() {
 		  poster: 'http://dgnqtfv2myuh4.cloudfront.net/Portfolio-Draft.jpg'
 		},
 		{
+			title: 'La Madeleine',
+			mp4: 'http://dgnqtfv2myuh4.cloudfront.net/Portfolio-LaMad.mp4',
+		  webm: 'http://dgnqtfv2myuh4.cloudfront.net/Portfolio-LaMad.webm',
+		  poster: 'http://dgnqtfv2myuh4.cloudfront.net/Portfolio-LaMad.jpg'
+		},
+		{
 			title: 'Microsoft',
 			mp4: 'http://dgnqtfv2myuh4.cloudfront.net/Portfolio-Microsoft.mp4',
 		  webm: 'http://dgnqtfv2myuh4.cloudfront.net/Portfolio-Microsoft.webm',
 		  poster: 'http://dgnqtfv2myuh4.cloudfront.net/Portfolio-Microsoft.jpg'
 		},
 		{
-			title: 'La Madeleine',
-			mp4: 'http://dgnqtfv2myuh4.cloudfront.net/Seedling-Promo.mp4',
-		  webm: 'http://dgnqtfv2myuh4.cloudfront.net/Seedling-Promo.webm',
-		  poster: 'http://dgnqtfv2myuh4.cloudfront.net/Seedling-Promo.jpg'
-		},
-		{
 			title: 'Unicorn',
-			mp4: 'http://dgnqtfv2myuh4.cloudfront.net/Portfolio-Unicorn.mp4',
-		  webm: 'http://dgnqtfv2myuh4.cloudfront.net/Portfolio-Unicorn.webm',
+			mp4: 'http://dgnqtfv2myuh4.cloudfront.net/Portfolio-Unicorn-v2.mp4',
+		  webm: 'http://dgnqtfv2myuh4.cloudfront.net/Portfolio-Unicorn-v2.webm',
 		  poster: 'http://dgnqtfv2myuh4.cloudfront.net/Portfolio-Unicorn.jpg'
 		},
 		{
@@ -60,24 +60,22 @@ $(function() {
 	  webm: slideItems[0].webm,
 	  poster: slideItems[0].poster
 	}, {
-		posterType: 'none',
+		posterType: 'jpg',
 		bgColor: 'transparent'
 	});
 
 	var videoBg = $('#video-bg').data('vide').getVideoObject();
 
-	console.log("videoBg: ", videoBg);
-
 	videoBg.onplay = function(){
-		console.log("Video playing");
+		console.log('Video playing');
 	};
 
 	videoBg.onloadstart = function(){
-		console.log("Starting loading video");
+		console.log('Starting loading video');
 	}
 
 	videoBg.onended = function(){
-		console.log("Video ended");
+		console.log('Video ended');
 	}
 
 	var loadSlide = function(slideIndex){
@@ -87,12 +85,10 @@ $(function() {
 		// Stop pending HTTP requests
 		window.stop();
 
-		// Add random string to video sources
-		// to prevent caching (webkit bug)
-		var randomNumber = Math.random().toString(36).substring(7);
-
+		// Destroy previous video
 		$('#video-bg').data('vide').destroy();
 
+		// Create new background video
 		$('#video-bg').vide({
 		  mp4: slideItem.mp4,
 		  webm: slideItem.webm,
@@ -102,11 +98,8 @@ $(function() {
 			bgColor: 'transparent'
 		});
 
-		var videoBg = $('#video-bg').data('vide').getVideoObject();
-
-		videoBg.onplay = function(){
-			console.log("Playing video");
-		};
+		// Get media element object
+		videoBg = $('#video-bg').data('vide').getVideoObject();
 
 	};
 
@@ -115,17 +108,27 @@ $(function() {
 
 	// Initialize carousel
 	$carousel.slick({
-		dots: true
-	});
-
-	// On before slide change
-	$carousel.on('beforeChange', function(event, slick, currentSlide, nextSlide){
-	  //loadSlide(currentSlide);
+		dots: false
 	});
 
 	// On after slide change
 	$carousel.on('afterChange', function(event, slick, currentSlide, nextSlide){
+		// Close any open descriptions
+		$('.desc-wrap').addClass('hide-desc');
+
+		// Load slide data
 	  loadSlide(currentSlide);
+	});
+
+	// Show/Hide click handling
+	$('.show-toggle').on('click', function(){
+		$(this).parent().toggleClass('hide-desc');
+		if($(this).parent().hasClass('hide-desc')){
+			videoBg.play();
+		}
+		else{
+			videoBg.pause();
+		}
 	});
 
 });
