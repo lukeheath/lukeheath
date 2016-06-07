@@ -3,12 +3,14 @@ const $ = window.jQuery;
 
 $(function() {
 
+	var isTouchDevice = checkTouch();
+
 	var slideItems = [
 		{
 			title: 'Welcome',
-			mp4: 'http://dgnqtfv2myuh4.cloudfront.net/portfolio-welcome.mp4',
-		  webm: 'http://dgnqtfv2myuh4.cloudfront.net/portfolio-welcome.webm',
-		  poster: 'http://dgnqtfv2myuh4.cloudfront.net/portfolio-welcome.jpg'
+			mp4: 'http://dgnqtfv2myuh4.cloudfront.net/Portfolio-Welcome-v2.mp4',
+		  webm: 'http://dgnqtfv2myuh4.cloudfront.net/Portfolio-Welcome-v2.webm',
+		  poster: 'http://dgnqtfv2myuh4.cloudfront.net/Portfolio-Welcome-v2.jpg'
 		},
 		{
 			title: 'Seedling',
@@ -48,9 +50,9 @@ $(function() {
 		},
 		{
 			title: 'About',
-			mp4: 'http://dgnqtfv2myuh4.cloudfront.net/portfolio-welcome.mp4',
-		  webm: 'http://dgnqtfv2myuh4.cloudfront.net/portfolio-welcome.webm',
-		  poster: 'http://dgnqtfv2myuh4.cloudfront.net/portfolio-welcome.jpg'
+			mp4: 'http://dgnqtfv2myuh4.cloudfront.net/Portfolio-About-v3.mp4',
+		  webm: 'http://dgnqtfv2myuh4.cloudfront.net/Portfolio-About-v3.webm',
+		  poster: 'http://dgnqtfv2myuh4.cloudfront.net/Portfolio-About.jpg'
 		}
 	];
 
@@ -66,17 +68,19 @@ $(function() {
 
 	var videoBg = $('#video-bg').data('vide').getVideoObject();
 
+	var $videoCover = $('#video-cover');
+
+	if(isTouchDevice){
+		$videoCover.removeClass('full');
+	}
+
 	videoBg.onplay = function(){
-		console.log('Video playing');
+		$videoCover.removeClass('full');
 	};
 
 	videoBg.onloadstart = function(){
-		console.log('Starting loading video');
-	}
-
-	videoBg.onended = function(){
-		console.log('Video ended');
-	}
+		//console.log('Starting loading video');
+	};
 
 	var loadSlide = function(slideIndex){
 
@@ -85,21 +89,31 @@ $(function() {
 		// Stop pending HTTP requests
 		window.stop();
 
-		// Destroy previous video
-		$('#video-bg').data('vide').destroy();
+		if(!isTouchDevice){
+			$videoCover.addClass('full');
+		}
 
-		// Create new background video
-		$('#video-bg').vide({
-		  mp4: slideItem.mp4,
-		  webm: slideItem.webm,
-		  poster: slideItem.poster
-		}, {
-			posterType: 'none',
-			bgColor: 'transparent'
-		});
+		// Wait for cover to finish fading in
+		setTimeout(function(){
 
-		// Get media element object
-		videoBg = $('#video-bg').data('vide').getVideoObject();
+			// Update video background
+			$('#video-bg').vide({
+			  mp4: slideItem.mp4,
+			  webm: slideItem.webm,
+			  poster: slideItem.poster
+			}, {
+				posterType: 'jpg',
+				bgColor: 'transparent'
+			});
+
+			// Update media element object
+			videoBg = $('#video-bg').data('vide').getVideoObject();
+
+			videoBg.onplay = function(){
+				$videoCover.removeClass('full');
+			};
+
+		}, 300);
 
 	};
 
@@ -108,27 +122,49 @@ $(function() {
 
 	// Initialize carousel
 	$carousel.slick({
-		dots: false
+
+	});
+
+	// On before slide change
+	$carousel.on('beforeChange', function(event, slick, currentSlide, nextSlide){
+		// Load slide data
+	  loadSlide(nextSlide);
 	});
 
 	// On after slide change
 	$carousel.on('afterChange', function(event, slick, currentSlide, nextSlide){
 		// Close any open descriptions
-		$('.desc-wrap').addClass('hide-desc');
-
-		// Load slide data
-	  loadSlide(currentSlide);
-	});
-
-	// Show/Hide click handling
-	$('.show-toggle').on('click', function(){
-		$(this).parent().toggleClass('hide-desc');
-		if($(this).parent().hasClass('hide-desc')){
-			videoBg.play();
-		}
-		else{
-			videoBg.pause();
+		if(!isTouchDevice){
+			$('.desc-wrap').addClass('hide-desc');
 		}
 	});
+
+	// Show/Hide click/tap handling
+
+	if(isTouchDevice){
+		$('.show-toggle').on('touchend', function(){
+			if($(this).parent().hasClass('hide-desc')){
+				$(this).parent().removeClass('hide-desc');
+			}
+			else{
+				$(this).parent().addClass('hide-desc');
+			}
+		});
+	}
+	else{
+		$('.show-toggle').on('click', function(){
+			$(this).parent().toggleClass('hide-desc');
+			if($(this).parent().hasClass('hide-desc')){
+				videoBg.play();
+			}
+			else{
+				videoBg.pause();
+			}
+		});
+	}
+
+	function checkTouch() {
+	 return (('ontouchstart' in window) || (navigator.MaxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0));
+	}
 
 });
